@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/712c9ccdb7.js" crossorigin="anonymous"></script>
+
+    
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-0 mb-5">
+       <div class="container">      
+        <div class="navbar-brand pt-2 pb-2 pl-3 pr-3">
+            <%= link_to "Bookers",root_path, class:'nav-link text-light' %>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+         <% if user_signed_in? %>
+         <li class="nav-item">
+            <%= link_to user_path(current_user.id), class:'nav-link text-light' do %>
+             <i class=' fas fa-home'></i>Home
+            <% end%> 
+         </li>
+         <li class="nav-item">
+          <%= link_to users_path, class:'nav-link text-light' do %>
+            <i class=' fas fa-users'></i>Users
+          <% end %>  
+         </li>
+         <li class="nav-item">
+           <%= link_to books_path, class:'nav-link text-light' do %>
+             <i class=' fas fa-book-open'></i>Books
+           <% end %>
+         </li>
+         <li class="nav-item">
+          <%= link_to destroy_user_session_path, class: 'nav-link text-light',method: :delete do %>
+            <i class=' fas fa-sign-out-alt'></i>Log out
+          <% end %>  
+         </li> 
+         <% else %>    
+         <li class="nav-item">
+          <%= link_to root_path,class:'nav-link text-light' do %>
+             <i class="fas fa-home"></i>Home
+          <% end %>
+         </li>
+         <li class="nav-item">
+          <%= link_to home_about_path,class:'nav-link text-light' do %>
+            <i class="fas fa-link"></i>About
+          <% end %>
+         </li>
+         <li class="nav-item">
+          <%= link_to new_user_registration_path, class:'nav-link text-light' do %>
+            <i class=' fas fa-user-plus'></i>Sign up
+          <% end %>
+         </li>
+         <li class="nav-item">
+          <%= link_to new_user_session_path, class:'nav-link text-light' do %>
+            <i class=' fas fa-sign-in-alt'></i>Log in
+          <% end %>
+         </li> 
+         <% end %>
+        </ul>
+         </div>
+        </div>
+       </nav> 
+       <% if flash[:notice] %>
+         <div class="notification is-info text-success">
+           <p class="notice"><%= notice %></p>
+         </div>
+       <% end %>  
+       
+       <% if flash[:alert] %>
+         <div class="notification is-danger">
+           <p class="alert"><%= alert %></p>
+         </div>
+       <% end %>  
+       <%= yield %>
+     </body>
+     <footer class="fixed-bottom text-center">
+      <p>CopyRight Infratop.inc</p>
+     </footer>
+     
+     
+  </html>
